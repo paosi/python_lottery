@@ -2,7 +2,7 @@
 
 import random
 
-# Lottery Game and Number Generator
+# Lottery Game and Winning Number Generator
 
 # Pick 3 generates three numbers from 0-9. Winning numbers can be duplicated, eg. 2, 2, 2
 def pick3():
@@ -22,13 +22,18 @@ def play_pick3():
     player_picks = []
     i = 0
     while i < 3:
-        guess = int(input("Pick a number from 0-9: "))
-        if guess in range(0, 10):
-            player_picks.append(guess)
-            i += 1
+        try:
+            guess = int(input("Pick a number from 0-9: "))
+        except ValueError:
+            # Eliminates errors if the user inputs a non-integer
+            print("INPUT MUST BE A NUMBER")
         else:
-            print("INVALID NUMBER")
-            continue
+            if guess in range(0, 10):
+                player_picks.append(guess)
+                i += 1
+            else:
+                # User picked a number outside the range
+                print("INVALID NUMBER")
     print("Your numbers are:",(', '.join(map(str, player_picks))))
     print("Tonight's winning numbers are:",(', '.join(map(str, picks))))
 
@@ -37,6 +42,8 @@ def play_pick3():
     for num in picks:
         if num in player_picks:
             match += 1 
+            picks.remove(num)
+            player_picks.remove(num)
     if match == 1:
         print("You have {x} match".format(x = match))
     else:
@@ -70,16 +77,22 @@ def play_pick6():
     all_balls = list(num_range) 
     i = 0
     while i < 6:
-        guess = int(input("Pick a number from 1-49: "))
-        if guess in range(1, 50):
-            if guess in all_balls:
-                player_picks.append(guess)
-                all_balls.remove(guess)
-                i += 1
-            else:
-                print("Number Already Chosen")
+        try:
+            guess = int(input("Pick a number from 1-49: "))
+        except ValueError:
+            # Eliminates errors if the user inputs a non-integer
+            print("INPUT MUST BE A NUMBER")
         else:
-            print("INVALID NUMBER")
+            if guess in range(1, 50):
+                if guess in all_balls:
+                    player_picks.append(guess)
+                    all_balls.remove(guess)
+                    i += 1
+                else:
+                    print("Number Already Chosen")
+            else:
+                # User picked a number outside the range
+                print("INVALID NUMBER")
     
     print("Your numbers are:",(', '.join(map(str, player_picks))))
     print("Tonight's winning numbers are:",(', '.join(map(str, picks))))
@@ -124,27 +137,36 @@ def play_mega():
     player_picks = []
     num_range = range(1, 71)
     all_balls = list(num_range) 
-    i = 0   
-    while i < 5:
-        guess = int(input("Pick a number from 1-70: "))
-        if guess in range(1, 71):
-            if guess in all_balls:
-                player_picks.append(guess)
-                all_balls.remove(guess)
-                i += 1
-            else:
-                print("Number Already Chosen")
-        else:
-            print("INVALID NUMBER")
-
+    i = 0
     j = 0
-    while j < 1:
-        guess_moneyball = int(input("-MONEYBALL- Pick a number from 1-25: "))
-        if guess_moneyball in range(1, 26):
-            player_picks.append(guess_moneyball)
-            j += 1
+    while i < 5:
+        try:
+            guess = int(input("Pick a number from 1-70: "))      
+        except ValueError:
+            # Eliminates errors if the user inputs a non-integer
+            print("INPUT MUST BE A NUMBER")
         else:
-            print("INVALID NUMBER")
+            if guess in range(1, 71):
+                if guess in all_balls:
+                    player_picks.append(guess)
+                    all_balls.remove(guess)
+                    i += 1
+                else:
+                    print("Number Already Chosen")
+            else:
+                # User picked a number outside the range
+                print("INVALID NUMBER")
+    while j < 1:
+        try:
+            guess_moneyball = int(input("-MONEYBALL- Pick a number from 1-25: "))
+        except ValueError:
+            print("INPUT MUST BE A NUMBER")
+        else:
+            if guess_moneyball in range(1, 26):
+                player_picks.append(guess_moneyball)
+                j += 1
+            else:
+                print("INVALID NUMBER")
 
     print("Your numbers are: {x}, Moneyball: {y}".format(x = (', '.join(map(str, player_picks[0:5]))), y = player_picks[5]))
     print("Tonight's winning numbers are: {x}, Moneyball: {y}".format(x = (', '.join(map(str, picks[0:5]))), y = picks[5]))
@@ -152,16 +174,21 @@ def play_mega():
     # Check to see how many matches there are and return that number
     match = 0
     for num in picks[0:4]:
-        if num in player_picks:
+        if num in player_picks[0:4]:
             match += 1 
-    if match == 1 and picks[5] != guess_moneyball:
-        print("You have {x} match".format(x = match))
+    if match == 1:
+        if picks[5] == guess_moneyball:
+            print("You have {x} match and you matched the Moneyball")
+        else:
+            print("You have {x} match".format(x = match))
         print("Try again")
-    elif match == range(1,5) and picks[5] == guess_moneyball:
+    elif match == range(2, 5) and picks[5] == guess_moneyball:
         print("You have {x} matches and you matched the Moneyball".format(x = match))  
         print("Try again")
     elif match == 5 and picks[5] == guess_moneyball:
         print("JACKPOT!!!")
+    elif picks[5] == guess_moneyball:
+        print("You matched the Moneyball")
     else:
         print("You have {x} matches".format(x = match))
         print("Try again")
@@ -190,27 +217,37 @@ def play_power():
     player_picks = []
     num_range = range(1, 70)
     all_balls = list(num_range) 
-    i = 0   
-    while i < 5:
-        guess = int(input("Pick a number from 1-69: "))
-        if guess in range(1, 70):
-            if guess in all_balls:
-                player_picks.append(guess)
-                all_balls.remove(guess)
-                i += 1
-            else:
-                print("Number Already Chosen")
-        else:
-            print("INVALID NUMBER")
-
+    i = 0
     j = 0
-    while j < 1:
-        guess_moneyball = int(input("-MONEYBALL- Pick a number from 1-26: "))
-        if guess_moneyball in range(1, 27):
-            player_picks.append(guess_moneyball)
-            j += 1
+
+    while i < 5:
+        try:
+            guess = int(input("Pick a number from 1-69: "))
+        except ValueError:
+            # Eliminates errors if the user inputs a non-integer
+            print("INPUT MUST BE A NUMBER")
         else:
-            print("INVALID NUMBER")
+            if guess in range(1, 70):
+                if guess in all_balls:
+                    player_picks.append(guess)
+                    all_balls.remove(guess)
+                    i += 1
+                else:
+                    print("Number Already Chosen")
+            else:
+                # User picked a number outside the range
+                print("INVALID NUMBER")
+    while j < 1:
+        try:
+            guess_moneyball = int(input("-MONEYBALL- Pick a number from 1-26: "))
+        except ValueError:
+            print("INPUT MUST BE A NUMBER")
+        else:
+            if guess_moneyball in range(1, 27):
+                player_picks.append(guess_moneyball)
+                j += 1
+            else:
+                print("INVALID NUMBER")
 
     print("Your numbers are: {x}, Moneyball: {y}".format(x = (', '.join(map(str, player_picks[0:5]))), y = player_picks[5]))
     print("Tonight's winning numbers are: {x}, Moneyball: {y}".format(x = (', '.join(map(str, picks[0:5]))), y = picks[5]))
@@ -218,16 +255,21 @@ def play_power():
     # Check to see how many matches there are and return that number
     match = 0
     for num in picks[0:4]:
-        if num in player_picks:
+        if num in player_picks[0:4]:
             match += 1 
-    if match == 1 and picks[5] != guess_moneyball:
-        print("You have {x} match".format(x = match))
+    if match == 1:
+        if picks[5] == guess_moneyball:
+            print("You have {x} match and you matched the Moneyball")
+        else:
+            print("You have {x} match".format(x = match))
         print("Try again")
-    elif match == range(1,5) and picks[5] == guess_moneyball:
+    elif match == range(2, 5) and picks[5] == guess_moneyball:
         print("You have {x} matches and you matched the Moneyball".format(x = match))  
         print("Try again")
     elif match == 5 and picks[5] == guess_moneyball:
         print("JACKPOT!!!")
+    elif picks[5] == guess_moneyball:
+        print("You matched the Moneyball")
     else:
         print("You have {x} matches".format(x = match))
         print("Try again")
