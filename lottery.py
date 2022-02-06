@@ -282,7 +282,7 @@ def main():
     game = game.lower()
     game = game.replace(" ","")
 
-    # The correct funcion is chosen according to user input
+    # The correct function is chosen according to user input
     if game == "pick3":
         play_pick3()   
     elif game == "pick6":
