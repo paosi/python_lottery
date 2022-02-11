@@ -1,6 +1,6 @@
 # Lottery Game and Winning Numbers Generator
 
-Written in Python
+Requirements: Python 3
 
 Choose from 4 different lottery games:
 	
