@@ -275,7 +275,7 @@ def play_power():
         print("Try again")
 
 
-def main():
+def play():
     # The user chooses which game to play
     game = input("Which game do you want to play: Pick 3, Pick 6, Mega Millions, or Powerball? --> ")
     # Re-format the variable for consistency
@@ -283,15 +283,21 @@ def main():
     game = game.replace(" ","")
 
     # The correct function is chosen according to user input
-    if game == "pick3":
-        play_pick3()   
-    elif game == "pick6":
-        play_pick6()
-    elif game == "megamillions":
-        play_mega()
-    elif game == "powerball":
-        play_power()
-    else:
-        print("GAME NOT FOUND")
+    match game:
 
-main()
+        case "pick3":
+            play_pick3()   
+        case "pick6":
+            play_pick6()
+        case "megamillions":
+            play_mega()
+        case "powerball":
+            play_power()
+        case _ :
+            print("GAME NOT FOUND")
+
+
+
+if __name__ == "__main__":
+
+    play()
