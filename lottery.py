@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
+import os
 import random
+from playsound import playsound
+
+source = os.path.join(os.getcwd(), "sounds", "")
 
 # Lottery Game and Winning Number Generator
 
@@ -23,6 +27,7 @@ def play_pick3():
     i = 0
     while i < 3:
         try:
+            playsound(source + "002.mp3")
             guess = int(input("Pick a number from 0-9: "))
         except ValueError:
             # Eliminates errors if the user inputs a non-integer
@@ -34,6 +39,8 @@ def play_pick3():
             else:
                 # User picked a number outside the range
                 print("INVALID NUMBER")
+
+    playsound(source + "003.mp3")
     print("Your numbers are:",(', '.join(map(str, player_picks))))
     print("Tonight's winning numbers are:",(', '.join(map(str, picks))))
 
@@ -78,6 +85,7 @@ def play_pick6():
     i = 0
     while i < 6:
         try:
+            playsound(source + "002.mp3")
             guess = int(input("Pick a number from 1-49: "))
         except ValueError:
             # Eliminates errors if the user inputs a non-integer
@@ -94,6 +102,7 @@ def play_pick6():
                 # User picked a number outside the range
                 print("INVALID NUMBER")
     
+    playsound(source + "003.mp3")
     print("Your numbers are:",(', '.join(map(str, player_picks))))
     print("Tonight's winning numbers are:",(', '.join(map(str, picks))))
 
@@ -141,6 +150,7 @@ def play_mega():
     j = 0
     while i < 5:
         try:
+            playsound(source + "002.mp3")
             guess = int(input("Pick a number from 1-70: "))      
         except ValueError:
             # Eliminates errors if the user inputs a non-integer
@@ -158,6 +168,7 @@ def play_mega():
                 print("INVALID NUMBER")
     while j < 1:
         try:
+            playsound(source + "002.mp3")
             guess_moneyball = int(input("-MONEYBALL- Pick a number from 1-25: "))
         except ValueError:
             print("INPUT MUST BE A NUMBER")
@@ -168,6 +179,7 @@ def play_mega():
             else:
                 print("INVALID NUMBER")
 
+    playsound(source + "003.mp3")
     print("Your numbers are: {x}, Moneyball: {y}".format(x = (', '.join(map(str, player_picks[0:5]))), y = player_picks[5]))
     print("Tonight's winning numbers are: {x}, Moneyball: {y}".format(x = (', '.join(map(str, picks[0:5]))), y = picks[5]))
 
@@ -222,6 +234,7 @@ def play_power():
 
     while i < 5:
         try:
+            playsound(source + "002.mp3")
             guess = int(input("Pick a number from 1-69: "))
         except ValueError:
             # Eliminates errors if the user inputs a non-integer
@@ -239,6 +252,7 @@ def play_power():
                 print("INVALID NUMBER")
     while j < 1:
         try:
+            playsound(source + "002.mp3")
             guess_moneyball = int(input("-MONEYBALL- Pick a number from 1-26: "))
         except ValueError:
             print("INPUT MUST BE A NUMBER")
@@ -249,6 +263,7 @@ def play_power():
             else:
                 print("INVALID NUMBER")
 
+    playsound(source + "003.mp3")
     print("Your numbers are: {x}, Moneyball: {y}".format(x = (', '.join(map(str, player_picks[0:5]))), y = player_picks[5]))
     print("Tonight's winning numbers are: {x}, Moneyball: {y}".format(x = (', '.join(map(str, picks[0:5]))), y = picks[5]))
 
@@ -277,6 +292,7 @@ def play_power():
 
 def play():
     # The user chooses which game to play
+    playsound(source + "001.mp3")
     game = input("Which game do you want to play: Pick 3, Pick 6, Mega Millions, or Powerball? --> ")
     # Re-format the variable for consistency
     game = game.lower()
